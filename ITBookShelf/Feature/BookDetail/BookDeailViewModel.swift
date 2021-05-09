@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreModular
 import Combine
 
 extension BookDeailViewController {

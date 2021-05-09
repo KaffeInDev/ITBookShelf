@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreModular
 
 protocol BookShelf: Codable {
     var total: String { get }
@@ -80,5 +81,31 @@ extension Model {
         var publisher: String
         var isbn10: String
         var pdf: [String: String]?
+    }
+}
+
+
+extension Remote where T == Model.New {
+    static func lookup() -> Remote {
+        let instance = Remote(parameters: [] ,method: .get)
+        instance.urlComponent.path = "/1.0/new"
+        return instance
+    }
+}
+
+extension Remote where T == Model.DetailBook {
+    static func information(_ isbn13: String) -> Remote {
+        let instance = Remote(parameters: [] ,method: .get)
+        instance.urlComponent.path = "/1.0/books/\(isbn13)"
+        return instance
+    }
+}
+
+extension Remote where T == Model.Search {
+    private static var defaultPage: Int { get { 1 } }
+    static func search(_ keyword: String, page: Int = defaultPage) -> Remote {
+        let instance = Remote(parameters: [] ,method: .get)
+        instance.urlComponent.path = "/1.0/search/\(keyword)/\(page)"
+        return instance
     }
 }

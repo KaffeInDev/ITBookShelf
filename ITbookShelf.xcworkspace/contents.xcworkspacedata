@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CoreModular">
+   </FileRef>
+   <FileRef
       location = "group:ITBookShelf.xcodeproj">
    </FileRef>
 </Workspace>

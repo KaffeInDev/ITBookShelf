@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CoreModular
+import Combine
 
 class BookDeailViewController: BaseViewController {
     enum Constants { static let cellCount = 2 }

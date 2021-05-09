@@ -6,8 +6,7 @@
 //
 
 import UIKit
-
-import UIKit
+import CoreModular
 import Combine
 
 class SearchResultViewController: BaseViewController {

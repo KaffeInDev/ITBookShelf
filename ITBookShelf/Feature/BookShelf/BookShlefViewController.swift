@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Combine
+import CoreModular
 
 class BookShlefViewController: BaseViewController {
     // MARK: - IBOutlets
