@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  Model+Remote.swift
 //  ITBookShelf
 //
 //  Created by JunKyung.Park on 2021/01/20.
