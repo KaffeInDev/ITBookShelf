@@ -73,7 +73,7 @@ Local SPM을 이용하여 빈번 하게 사용 되는 중심/공용
 ### 1. Combine을 중점으로 한 통신 모듈
 **sample code**
 ```
-Remote<Codable Model>.lookup().asObservable()
+Remote<Codable Model>.function().asObservable()
 .compactMap({ $0 })
 .sink(receiveCompletion: { [unowned self] in
     switch $0 {
