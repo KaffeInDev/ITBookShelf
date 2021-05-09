@@ -188,8 +188,7 @@
 		1D4E609C25B76632003BA24F /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				1DC9D47725B9C39800A17C7D /* BaseViewController.swift */,
-				1DB3A7C225B8294F00830091 /* BaseCell.swift */,
+				1DE4109C2647D9C4001013A5 /* Base */,
 				1D4E609025B7656D003BA24F /* Model */,
 				1D4E60D325B81159003BA24F /* BookShelf */,
 				1D17D3B525BC476600B71103 /* BookDetail */,
@@ -262,6 +261,15 @@
 				1DE410942647D499001013A5 /* UIImageView+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1DE4109C2647D9C4001013A5 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				1DC9D47725B9C39800A17C7D /* BaseViewController.swift */,
+				1DB3A7C225B8294F00830091 /* BaseCell.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
