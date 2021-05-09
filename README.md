@@ -19,9 +19,47 @@ TableView Cell을 구성 하기 위한 BaseCell Protocol
 MVVM의 **Model**에 해당하는 피쳐로  
 CoreModular의 통신모듈(**Remote**)을 확장하여  
 각 통신 인스턴스를 static 인스턴스를 생성 함
+Model은 Codable을 프로토콜을 따름.
+
+```
+protocol BookShelf: Codable {
+    var total: String { get }
+    var error: String { get }
+    var books: [Model.Book] { get }
+}
+
+protocol BookInfo: Codable & Equatable {
+    var title: String { get }
+    var subtitle: String { get }
+    var isbn13: String { get }
+    var price: String { get }
+    var image: String { get }
+    var url: String { get }
+}
+
+    struct Book: BookInfo, Equatable {
+        var title: String
+        var subtitle: String
+        var isbn13: String
+        var price: String
+        var image: String 
+        var url: String
+    }
+```
+
+#### View 공통
+
+MVVM 규칙에 따라 ViewModel을 갖추고  
+View의 Event를 감시하여 Model의 변화를 요청하고  
+요청 결과에 따른 Model의 갱신과 그에 따른  
+View 의 갱신 을 수행함.
 
 **BookSehlf**
 
+1. 사용자가 검색했던 책이 없는 경우 신규 책 리스트를 불러와서 표시함.
+2. 사용자가 검색했던 책이 저장 되어있는 경우 리스트를 불러와서 표시함.
+3. 이미지는 각 아이템 마 URL 문자열로 제공 되며 이미지는 비동기처리됨.
+(CoreModular에 속해있는 ImageCache 관련 기능 사용)
 
 
 ## CoreModular
