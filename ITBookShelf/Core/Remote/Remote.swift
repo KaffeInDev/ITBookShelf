@@ -10,6 +10,10 @@ import Combine
 import UIKit
 
 class Remote<T: Codable> {
+    #if DEBUG
+    internal var debugURLComponent: URLComponents { urlComponent }
+    #endif
+    
     fileprivate lazy var urlComponent: URLComponents = {
         var component = URLComponents()
         component.scheme = "https"
@@ -23,10 +27,6 @@ class Remote<T: Codable> {
         queue.maxConcurrentOperationCount = 5
         return queue
     }()
-    
-    #if DEBUG
-    internal var debugURLComponent: URLComponents { urlComponent }
-    #endif
     
     private let session: URLSession = .init(configuration: .default)
     private var method: HTTPMethod
