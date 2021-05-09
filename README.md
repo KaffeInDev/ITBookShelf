@@ -18,7 +18,7 @@ TableView Cell을 구성 하기 위한 BaseCell Protocol
 
 MVVM의 **Model**에 해당하는 피쳐로  
 CoreModular의 통신모듈(**Remote**)을 확장하여  
-각 통신 인스턴스를 static 인스턴스를 생성 함
+각 통신 인스턴스를 생성 함
 Model은 Codable을 프로토콜을 따름.
 
 ```
