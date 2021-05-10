@@ -1,10 +1,18 @@
 # ITBookShelf
 Swift, Combine, IT Book Store, pagination, image cache
 
+## 목적
+
+서드파티 라이브러리 없이 Standalone 작동하는.  
+Combine 기반의 MVVM 어플리케이션.  
+  
+Search, SearchResult View 컨트롤러 하이라키의 이해.  
+Smooth한 pagination scrollview (tableview, collectionview)  
+
+### 과제
+로컬 데이터 저장을 더욱 generic하고 의존성을 배제 하도록 작성.
+
 사용된 API는 이곳을 참고 [IT Bookstore API](https://api.itbook.store)
-
-
-
 
 ## Feature
 
