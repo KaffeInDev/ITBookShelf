@@ -1,6 +1,6 @@
 # ITBookShelf
 Swift, Combine, IT Book Store, pagination, image cache  
-Standalone Application with out thrir party library
+Standalone Application without thrir party library
 
 ## 목적
 
