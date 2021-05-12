@@ -48,7 +48,7 @@ public extension Remote {
             self.session.dataTaskPublisher(for: $0, cachedResponseOnError: true)
         }).tryMap { data, response -> Data in
             guard let response = response as? HTTPURLResponse,
-                  (200..<300).contains(response.statusCode) else {
+                  200..<300 ~= response.statusCode else {
                 throw ResultError.invalidStatusCode
             }
             return data

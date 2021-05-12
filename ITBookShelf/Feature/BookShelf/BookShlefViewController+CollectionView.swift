@@ -10,7 +10,7 @@ import UIKit
 // MARK: - CollectionView releated
 extension BookShlefViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.books.count
+        viewModel.outputs.booksValue.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -32,12 +32,12 @@ extension BookShlefViewController: UICollectionViewDataSource {
         forItemAt indexPath: IndexPath) {
         
         guard let cell = cell as? BookInfoCollectionViewCell else { return }
-        guard let books = viewModel.books[safe: indexPath.row] else { return }
+        guard let books = viewModel.outputs.booksValue[safe: indexPath.row] else { return }
         cell.configure(with: books)
     }
     // MARK: - action: didSelectItemAt
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.selectedBookNumber = viewModel.books[indexPath.row].isbn13
+        viewModel.inputs.selectedBookNumber(viewModel.outputs.booksValue[indexPath.row].isbn13)
         performSegue(withIdentifier: "showBookDetail", sender: self)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Range where Bound: BinaryInteger {
+extension Range where Bound == Int {
     var nsRange: NSRange {
         NSMakeRange(startIndex, endIndex)
     }

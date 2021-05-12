@@ -32,7 +32,7 @@ open class ViewModelType<Base: ViewModelStream>: ViewModelStream {
     private(set) lazy public var inputs: Base.Input = { base.inputs }()
     private(set) lazy public var outputs: Base.Output = { base.outputs }()
     private var base: Base
-    init(_ base: Base) {
+    public init(_ base: Base) {
         self.base = base
     }
     deinit { print("ViewModelType Deinit Base == \(Base.self)") }

@@ -12,7 +12,7 @@ class BookShlefViewController: BaseViewController {
     // MARK: - IBOutlets
     @IBOutlet private var collectionView: UICollectionView!
     // MARK: - Constant
-    let viewModel: ViewModel = .init()
+    let viewModel: ViewModelType<ViewModel> = .init(ViewModel())
     // MARK: - variations
     var searchControllerReference: UISearchController { searchController }
     // MARK: - private variations
@@ -33,15 +33,15 @@ class BookShlefViewController: BaseViewController {
     }
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard viewModel.selectedBookNumber.isEmpty == false else { return }
+        guard viewModel.outputs.selectedBookNumber.isEmpty == false else { return }
         let bookDetailViewController =  segue.destination as? BookDeailViewController
-        bookDetailViewController?.configure(viewModel.selectedBookNumber)
+        bookDetailViewController?.configure(viewModel.outputs.selectedBookNumber)
     }
     //MARK: - functions
     func bindViewModel() {
         startLoading(.clear)
-        viewModel.fetchBooks()
-        viewModel.$books
+        viewModel.inputs.fetchBooks()
+        viewModel.outputs.books
         .receive(on: RunLoop.main)
         .sink(receiveValue: { [unowned self] _ in
             self.collectionView.reloadData()
@@ -52,7 +52,7 @@ class BookShlefViewController: BaseViewController {
     }
     
     func bindError() {
-        viewModel.error.receive(on: RunLoop.main)
+        viewModel.outputs.error.receive(on: RunLoop.main)
         .compactMap { $0 as? ResultError }
         .sink(receiveValue: { [unowned self] in
             self.endLoading()
@@ -70,7 +70,7 @@ class BookShlefViewController: BaseViewController {
             handler: { [unowned self] _ in
                 DispatchQueue.main.safeAsync {
                     self.startLoading()
-                    self.viewModel.fetchBooks()
+                    self.viewModel.inputs.fetchBooks()
                 }
             }
         )
@@ -104,7 +104,8 @@ extension BookShlefViewController {
 extension BookShlefViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         guard searchResultViewController.hasConfigured() == false else { return }
-        searchResultViewController.configure(publisher: &viewModel.$books, value: viewModel.books)
+        var books = viewModel.outputs.books
+        searchResultViewController.configure(publisher: &books, value: viewModel.outputs.booksValue)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

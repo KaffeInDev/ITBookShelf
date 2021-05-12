@@ -11,13 +11,15 @@ import Combine
 
 extension BookShlefViewController {
     class ViewModel {
-        // MARK: - constant
-        let error = PassthroughSubject<Error, Never>()
-        // MARK: - varations
+        // MARK: - Lazy properties
+        lazy var inputs: Inputs = { Inputs(base: self) }()
+        lazy var outputs: Outputs = { Outputs(base: self) }()
+        // MARK: - variables
         @Published var books: [Model.Book] = []
         var selectedBookNumber: String = .empty
         // MARK: - private constants
         private let cancelables: Set<AnyCancellable> = Set()
+        private let error = PassthroughSubject<Error, Never>()
         // MARK: - fetch data functions
         func fetchBooks() {
             guard let books = savedBooks(), books.count > .zero else {
@@ -53,4 +55,33 @@ extension BookShlefViewController {
             return try? JSONDecoder().decode([Model.Book].self, from: data)
         }
     }
+}
+
+extension BookShlefViewController.ViewModel: ViewModelStream {
+    typealias ViewModel = BookShlefViewController.ViewModel
+    /// Implement only functions, if possible
+    struct Inputs: ViewModelStreamInternals {
+        private unowned var base: ViewModel
+        init(base: ViewModel) { self.base = base }
+    }
+    /// Implement only functions, if possible
+    struct Outputs: ViewModelStreamInternals {
+        private unowned var base: ViewModel
+        init(base: ViewModel) { self.base = base }
+    }
+}
+
+fileprivate typealias Inputs = BookShlefViewController.ViewModel.Inputs
+fileprivate typealias Outputs = BookShlefViewController.ViewModel.Outputs
+
+extension Inputs {
+    func fetchBooks() { base.fetchBooks() }
+    func selectedBookNumber(_ number: String) { base.selectedBookNumber = number }
+}
+
+extension Outputs {
+    var books: Published<[Model.Book]>.Publisher { base.$books }
+    var booksValue: [Model.Book] { base.books }
+    var error: PassthroughSubject<Error, Never> { base.error }
+    var selectedBookNumber: String { base.selectedBookNumber }
 }
