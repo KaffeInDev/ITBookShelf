@@ -5,10 +5,26 @@
 //  Created by JunKyung.Park on 2021/01/20.
 //
 
-import Foundation
+import UIKit
 
 public extension String {
     static var empty: String { "" }
+    
+    subscript(_ range: CountableRange<Int>) -> String {
+        let start = index(startIndex, offsetBy: max(0, range.lowerBound))
+        let end = index(start, offsetBy: min(self.count - range.lowerBound,
+                                             range.upperBound - range.lowerBound))
+        return String(self[start..<end])
+    }
+
+    subscript(_ range: CountablePartialRangeFrom<Int>) -> String {
+        let start = index(startIndex, offsetBy: max(0, range.lowerBound))
+         return String(self[start...])
+    }
+    
+    subscript(_ offset: Int) -> Character {
+        self[index(self.startIndex, offsetBy: offset)]
+    }
     
     func base64Encoded() -> String { Data(self.utf8).base64EncodedString() }
     func base64Decoded() -> String? {
@@ -17,6 +33,6 @@ public extension String {
         }
         return String(data: data, encoding: .utf8)
     }
+    
+    func `repeat`(count: Int) -> Self { String(repeating: self, count: count) }
 }
-
-
