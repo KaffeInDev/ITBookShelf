@@ -8,6 +8,7 @@
 import XCTest
 import PDFKit
 import Combine
+import CoreModular
 @testable import ITBookShelf
 
 class ITBookShelfTests: XCTestCase {
@@ -75,7 +76,7 @@ class ITBookShelfTests: XCTestCase {
     
     func testRemoteURLComponent() {
         let remote = Remote<Model.New>.lookup()
-        let component = remote.debugURLComponent
+        let component = remote.urlComponent
         let expactationValues = ["https", "api.itbook.store", "/1.0"]
         
         XCTAssertFalse(

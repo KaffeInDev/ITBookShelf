@@ -17,9 +17,6 @@ open class Remote<T: Codable> {
         component.path = "/1.0"
         return component
     }()
-    #if DEBUG
-    internal var debugURLComponent: URLComponents { urlComponent }
-    #endif
     
     private lazy var backgroundQueue: OperationQueue = {
         let queue = OperationQueue()

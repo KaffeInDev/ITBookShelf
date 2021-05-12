@@ -36,6 +36,8 @@
 		1DE410952647D499001013A5 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE410942647D499001013A5 /* UIImageView+Extensions.swift */; };
 		1DE410992647D7A9001013A5 /* CoreModular in Frameworks */ = {isa = PBXBuildFile; productRef = 1DE410982647D7A9001013A5 /* CoreModular */; };
 		1DE4109A2647D7A9001013A5 /* CoreModular in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1DE410982647D7A9001013A5 /* CoreModular */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1DFE6590264BCF8300E67666 /* CoreModular in Frameworks */ = {isa = PBXBuildFile; productRef = 1DFE658F264BCF8300E67666 /* CoreModular */; };
+		1DFE6592264BCF8300E67666 /* CoreModular in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1DFE658F264BCF8300E67666 /* CoreModular */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				1DE4109A2647D7A9001013A5 /* CoreModular in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DFE6591264BCF8300E67666 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1DFE6592264BCF8300E67666 /* CoreModular in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DFE6590264BCF8300E67666 /* CoreModular in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +317,7 @@
 				1D4E5FDB25B5D3FE003BA24F /* Sources */,
 				1D4E5FDC25B5D3FE003BA24F /* Frameworks */,
 				1D4E5FDD25B5D3FE003BA24F /* Resources */,
+				1DFE6591264BCF8300E67666 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -310,6 +325,9 @@
 				1D4E5FE125B5D3FE003BA24F /* PBXTargetDependency */,
 			);
 			name = ITBookShelfTests;
+			packageProductDependencies = (
+				1DFE658F264BCF8300E67666 /* CoreModular */,
+			);
 			productName = SendBirdTechChallengeTests;
 			productReference = 1D4E5FDF25B5D3FE003BA24F /* ITBookShelfTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -670,6 +688,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		1DE410982647D7A9001013A5 /* CoreModular */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreModular;
+		};
+		1DFE658F264BCF8300E67666 /* CoreModular */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CoreModular;
 		};
