@@ -6,15 +6,12 @@
 //
 
 import UIKit
-import Combine
+import CoreModular
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        RemoteDefault.policy =  RemotePolicy(host: Constants.host)
         return true
     }
 

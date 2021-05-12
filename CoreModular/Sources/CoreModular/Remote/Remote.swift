@@ -5,16 +5,15 @@
 //  Created by JunKyung.Park on 2021/01/18.
 //
 
-import Foundation
-import Combine
 import UIKit
+import Combine
 
 open class Remote<T: Codable> {
     public lazy var urlComponents: URLComponents = {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "api.itbook.store"
-        components.path = "/1.0"
+        components.host = RemoteDefault.policy?.host
+
         return components
     }()
     
@@ -27,6 +26,7 @@ open class Remote<T: Codable> {
     private let session: URLSession = .init(configuration: .default)
     private var parameters: [URLQueryItem]? = nil
     private var method: HTTPMethod = .get
+    
     public init(_ path: String? = nil, parameters: [URLQueryItem]? = nil, method: HTTPMethod = .get) {
         self.method = method
         if method == .get {

@@ -38,6 +38,7 @@
 		1DE4109A2647D7A9001013A5 /* CoreModular in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1DE410982647D7A9001013A5 /* CoreModular */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1DFE6590264BCF8300E67666 /* CoreModular in Frameworks */ = {isa = PBXBuildFile; productRef = 1DFE658F264BCF8300E67666 /* CoreModular */; };
 		1DFE6592264BCF8300E67666 /* CoreModular in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1DFE658F264BCF8300E67666 /* CoreModular */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1DFE65D0264C1CCF00E67666 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFE65CF264C1CCF00E67666 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		1DC9D47725B9C39800A17C7D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		1DE410902647D44C001013A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		1DE410942647D499001013A5 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		1DFE65CF264C1CCF00E67666 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 		1D4E609C25B76632003BA24F /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				1DFE65CE264C1CC300E67666 /* Constants */,
 				1DE4109C2647D9C4001013A5 /* Base */,
 				1D4E609025B7656D003BA24F /* Model */,
 				1D4E60D325B81159003BA24F /* BookShelf */,
@@ -284,6 +287,14 @@
 				1DB3A7C225B8294F00830091 /* BaseCell.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		1DFE65CE264C1CC300E67666 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				1DFE65CF264C1CCF00E67666 /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -408,6 +419,7 @@
 				1D4E60D625B811D4003BA24F /* BookInfoCollectionViewCell.swift in Sources */,
 				1DB3A7C325B8294F00830091 /* BaseCell.swift in Sources */,
 				1DE410952647D499001013A5 /* UIImageView+Extensions.swift in Sources */,
+				1DFE65D0264C1CCF00E67666 /* Constants.swift in Sources */,
 				1D4E5FD125B5D3FC003BA24F /* BookShlefViewController.swift in Sources */,
 				1D17D3CF25BC5C9B00B71103 /* BookDeailViewModel.swift in Sources */,
 				1D4E5FCD25B5D3FC003BA24F /* AppDelegate.swift in Sources */,
