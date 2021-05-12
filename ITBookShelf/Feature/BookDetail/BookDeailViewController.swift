@@ -50,7 +50,7 @@ class BookDeailViewController: BaseViewController {
     
     func configureSubviews() {
         bindKeyboardNotify(tableView)
-        Notifications.Keyboard.willShownPublisher()
+        NotificationPublishers.Keyboard.willShownPublisher()
         .receive(on: RunLoop.main)
         .sink(receiveValue: { [weak self] _ in
             guard let self = self else { return }

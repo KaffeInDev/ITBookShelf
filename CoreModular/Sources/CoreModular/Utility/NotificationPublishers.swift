@@ -1,5 +1,5 @@
 //
-//  Notifications.swift
+//  NotificationPublishers.swift
 //  ITBookShelf
 //
 //  Created by JunKyung.Park on 2021/01/21.
@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-public struct Notifications {
+public struct NotificationPublishers {
     public typealias MergedNotificationPublusher =
         Publishers.Merge<NotificationCenter.Publisher, NotificationCenter.Publisher>
     public struct Keyboard {

@@ -18,7 +18,7 @@ class BaseViewController: UIViewController {
     func bindKeyboardNotify(_ container: UIFocusItemScrollableContainer) {
         switch container {
         case let scrollView as UIScrollView:
-            Notifications.Keyboard.mergedBehaviorPublishers()
+            NotificationPublishers.Keyboard.mergedBehaviorPublishers()
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [unowned self] in
                 switch $0.name {
