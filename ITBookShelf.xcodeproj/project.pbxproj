@@ -172,6 +172,7 @@
 		1D4E5FCB25B5D3FC003BA24F /* ITBookShelf */ = {
 			isa = PBXGroup;
 			children = (
+				1DE410932647D484001013A5 /* Extensions */,
 				1DE4108F2647D437001013A5 /* Utility */,
 				1D4E609C25B76632003BA24F /* Feature */,
 				1D4E5FCC25B5D3FC003BA24F /* AppDelegate.swift */,
@@ -266,7 +267,6 @@
 		1DE4108F2647D437001013A5 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				1DE410932647D484001013A5 /* Extensions */,
 				1DE410902647D44C001013A5 /* LoadingView.swift */,
 			);
 			path = Utility;

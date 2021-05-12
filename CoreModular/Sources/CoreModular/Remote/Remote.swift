@@ -42,7 +42,7 @@ open class Remote<T: Codable> {
 public extension Remote {
     func asObservable(_ timeout: TimeInterval = 10) -> AnyPublisher<T, Error> {
         urlComponents.url.publisher.mapError({ _ in URLError(.badURL) })
-        .tryCompactMap { [unowned self] in
+        .tryCompactMap {
             try Request.make(url: $0, method: self.method, parameters: self.parameters)
         }.flatMap({ [unowned self] in
             self.session.dataTaskPublisher(for: $0, cachedResponseOnError: true)

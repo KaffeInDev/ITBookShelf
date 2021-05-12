@@ -20,11 +20,11 @@ class BaseViewController: UIViewController {
         case let scrollView as UIScrollView:
             Notifications.Keyboard.mergedBehaviorPublishers()
             .receive(on: RunLoop.main)
-            .sink(receiveValue: {
+            .sink(receiveValue: { [unowned self] in
                 switch $0.name {
                 case UIResponder.keyboardWillShowNotification:
                     var contentInset:UIEdgeInsets = scrollView.contentInset
-                    contentInset.bottom = $0.keyboardHeight
+                    contentInset.bottom = self.keyboardHeight($0.userInfo)
                     scrollView.contentInset = contentInset
                 case UIResponder.keyboardWillHideNotification:
                     scrollView.contentInset = .zero
@@ -36,6 +36,14 @@ class BaseViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    private func keyboardHeight(_ userInfo: [AnyHashable : Any]?) -> CGFloat {
+        guard let userInfo = userInfo else { return 0 }
+        guard let keyboardFrame =
+                userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue
+        else { return .zero }
+        return keyboardFrame.cgRectValue.size.height + 20
     }
     
     deinit {
