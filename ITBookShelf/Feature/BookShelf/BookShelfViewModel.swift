@@ -16,10 +16,10 @@ extension BookShlefViewController {
         lazy var outputs: Outputs = { Outputs(base: self) }()
         // MARK: - variables
         @Published var books: [Model.Book] = []
-        var selectedBookNumber: String = .empty
         // MARK: - private constants
-        private let cancelables: Set<AnyCancellable> = Set()
-        private let error = PassthroughSubject<Error, Never>()
+        let cancelables: Set<AnyCancellable> = Set()
+        let error = PassthroughSubject<Error, Never>()
+        var selectedBookNumber: String = .empty
         // MARK: - fetch data functions
         func fetchBooks() {
             guard let books = savedBooks(), books.count > .zero else {
@@ -29,7 +29,7 @@ extension BookShlefViewController {
             self.books = books
         }
         
-        private func fetchNews() {
+        func fetchNews() {
             Remote<Model.New>.lookup().asObservable()
             .compactMap({ $0 })
             .sink(receiveCompletion: { [unowned self] in
@@ -46,7 +46,7 @@ extension BookShlefViewController {
             }).cancel()
         }
         // MARK: - privae functions
-        private func savedBooks() -> [Model.Book]? {
+        func savedBooks() -> [Model.Book]? {
             guard let data = UserDefaults.standard.object(
                     forKey: BookShelfConstants.searchedBooksKey
             ) as? Data else {
