@@ -74,9 +74,9 @@ class ITBookShelfTests: XCTestCase {
         waitForExpectations(timeout: 0.3, handler: nil)
     }
     
-    func testRemoteURLComponent() {
+    func testRemoteURLComponents() {
         let remote = Remote<Model.New>.lookup()
-        let component = remote.urlComponent
+        let component = remote.urlComponents
         let expactationValues = ["https", "api.itbook.store", "/1.0"]
         
         XCTAssertFalse(

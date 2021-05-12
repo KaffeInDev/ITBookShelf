@@ -88,7 +88,7 @@ extension Model {
 extension Remote where T == Model.New {
     static func lookup() -> Remote {
         let instance = Remote(parameters: [] ,method: .get)
-        instance.urlComponent.path = "/1.0/new"
+        instance.urlComponents.path = "/1.0/new"
         return instance
     }
 }
@@ -96,7 +96,7 @@ extension Remote where T == Model.New {
 extension Remote where T == Model.DetailBook {
     static func information(_ isbn13: String) -> Remote {
         let instance = Remote(parameters: [] ,method: .get)
-        instance.urlComponent.path = "/1.0/books/\(isbn13)"
+        instance.urlComponents.path = "/1.0/books/\(isbn13)"
         return instance
     }
 }
@@ -105,7 +105,7 @@ extension Remote where T == Model.Search {
     private static var defaultPage: Int { get { 1 } }
     static func search(_ keyword: String, page: Int = defaultPage) -> Remote {
         let instance = Remote(parameters: [] ,method: .get)
-        instance.urlComponent.path = "/1.0/search/\(keyword)/\(page)"
+        instance.urlComponents.path = "/1.0/search/\(keyword)/\(page)"
         return instance
     }
 }
