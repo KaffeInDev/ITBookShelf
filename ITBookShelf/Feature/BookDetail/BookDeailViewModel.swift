@@ -11,6 +11,9 @@ import Combine
 
 extension BookDeailViewController {
     class ViewModel {
+        // MARK: - Lazy properties
+        lazy var inputs: Inputs = { Inputs(base: self) }()
+        lazy var outputs: Outputs = { Outputs(base: self) }()
         let error = PassthroughSubject<Error, Never>()
         var cancelables: Set<AnyCancellable> = Set()
         @Published var book: Model.DetailBook?
@@ -36,7 +39,35 @@ extension BookDeailViewController {
                 self.book = $0
             }).store(in: &cancelables)
         }
-        
-        func configure(_ isbn13: String) { self.isbn13 = isbn13 }
     }
 }
+
+extension BookDeailViewController.ViewModel: ViewModelStream {
+    typealias ViewModel = BookDeailViewController.ViewModel
+    /// Implement only functions, if possible
+    struct Inputs: ViewModelStreamInternals {
+        private unowned var base: ViewModel
+        init(base: ViewModel) { self.base = base }
+    }
+    /// Implement only functions, if possible
+    struct Outputs: ViewModelStreamInternals {
+        private unowned var base: ViewModel
+        init(base: ViewModel) { self.base = base }
+    }
+}
+
+extension BookDeailViewController.ViewModel.Inputs: DependancyConfigurable {
+    typealias Dependancy = String
+    func configure(_ dependancy: Dependancy) {
+        base.isbn13 = dependancy
+    }
+    func fetchBookDetail() { base.fetchBookDetail() }
+}
+
+extension BookDeailViewController.ViewModel.Outputs {
+    // FIXME: - We need 'Publisehd' change to CurrentValueSubject
+    var book: Published<Model.DetailBook?>.Publisher { base.$book }
+    var bookValue: Model.DetailBook? { base.book }
+    var error: PassthroughSubject<Error, Never> { base.error }
+}
+

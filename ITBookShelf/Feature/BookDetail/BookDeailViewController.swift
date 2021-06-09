@@ -18,7 +18,7 @@ class BookDeailViewController: BaseViewController {
     }
     
     @IBOutlet private var tableView: UITableView!
-    var viewModel = ViewModel()
+    let viewModel: ViewModelType<ViewModel> = .init(ViewModel())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,14 +32,14 @@ class BookDeailViewController: BaseViewController {
     }
     
     func bindViewModel() {
-        viewModel.fetchBookDetail()
-        viewModel.$book.receive(on: RunLoop.main)
+        viewModel.inputs.fetchBookDetail()
+        viewModel.outputs.book.receive(on: RunLoop.main)
         .sink(receiveValue: { [unowned self] _ in
             self.tableView.reloadData()
             self.endLoading()
         }).store(in: &cancelables)
         
-        viewModel.error.receive(on: RunLoop.main)
+        viewModel.outputs.error.receive(on: RunLoop.main)
         .sink(receiveValue: { [unowned self] in
             self.endLoading()
             let alert = UIAlertController(title: "", message: $0.localizedDescription, preferredStyle: .alert)
@@ -61,7 +61,7 @@ class BookDeailViewController: BaseViewController {
         }).store(in: &cancelables)
     }
     
-    func configure(_ isbn13: String) { viewModel.configure(isbn13) }
+    func configure(_ isbn13: String) { viewModel.inputs.configure(isbn13) }
 }
 // MARK: - tableview delegate, datasource
 extension BookDeailViewController {
@@ -71,8 +71,9 @@ extension BookDeailViewController {
             nibName: "PDFViewController",
             bundle: .main
         )
+        
         let pdfIndex = indexPath.row - TableViewRows.pdf.rawValue
-        guard let values = viewModel.book?.pdf?.map({ $0.value }).sorted() else { return }
+        guard let values = viewModel.outputs.bookValue?.pdf?.map({ $0.value }).sorted() else { return }
         guard let urlString = values[safe: pdfIndex], let url = URL(string: urlString) else { return }
         pdfViewController.configureViewModel(url)
         present(pdfViewController, animated: true, completion: nil)
@@ -81,25 +82,22 @@ extension BookDeailViewController {
 
 extension BookDeailViewController: UITableViewDelegate & UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Constants.cellCount + (viewModel.book?.pdf?.values.count ?? 0)
+        Constants.cellCount + (viewModel.outputs.bookValue?.pdf?.values.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        guard let book = viewModel.book else { return cell }
-        switch TableViewRows(rawValue: indexPath.row) {
+        guard let book = viewModel.outputs.bookValue else { return cell }
+        let rowType = TableViewRows(rawValue: indexPath.row)
+        switch rowType {
         case .information:
-            let detailInfoCell: BookDeatilInfoTableViewCell = tableView.dequeReusableCell()
-            detailInfoCell.configure(with: book)
-            cell = detailInfoCell
+            return tableView.configureBaseCell(value: book) as BookDeatilInfoTableViewCell
         case .userMemo:
-            let userMemoCell: UserMemoTableViewCell = tableView.dequeReusableCell()
-            userMemoCell.configure(with: book)
-            cell = userMemoCell
+            return tableView.configureBaseCell(value: book) as UserMemoTableViewCell
         case _ where (TableViewRows.pdf.rawValue...).contains(indexPath.row):
             cell = tableView.dequeueReusableCell(withIdentifier: "PDF", for: indexPath)
             let pdfIndex = indexPath.row - TableViewRows.pdf.rawValue
-            guard let keys = viewModel.book?.pdf?.map({ $0.key }).sorted() else { return cell }
+            guard let keys = viewModel.outputs.bookValue?.pdf?.map({ $0.key }).sorted() else { return cell }
             cell.textLabel?.text = "PDF Sample: " + (keys[safe: pdfIndex] ?? .empty)
         default:
             break

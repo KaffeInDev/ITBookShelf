@@ -32,6 +32,7 @@
 		1DC42B1725B8658D00C41DF9 /* BookShlefViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC42B1625B8658D00C41DF9 /* BookShlefViewController+CollectionView.swift */; };
 		1DC9D44E25B9896B00A17C7D /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC9D44D25B9896B00A17C7D /* SearchResultViewModel.swift */; };
 		1DC9D47825B9C39800A17C7D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC9D47725B9C39800A17C7D /* BaseViewController.swift */; };
+		1DD1AB312670BE6200A65F6C /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1AB302670BE6200A65F6C /* UITableView+Extension.swift */; };
 		1DE410912647D44C001013A5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE410902647D44C001013A5 /* LoadingView.swift */; };
 		1DE410952647D499001013A5 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE410942647D499001013A5 /* UIImageView+Extensions.swift */; };
 		1DE410992647D7A9001013A5 /* CoreModular in Frameworks */ = {isa = PBXBuildFile; productRef = 1DE410982647D7A9001013A5 /* CoreModular */; };
@@ -106,6 +107,7 @@
 		1DC42B1625B8658D00C41DF9 /* BookShlefViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookShlefViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		1DC9D44D25B9896B00A17C7D /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		1DC9D47725B9C39800A17C7D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		1DD1AB302670BE6200A65F6C /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		1DE410902647D44C001013A5 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		1DE410942647D499001013A5 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		1DFE65CF264C1CCF00E67666 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				1DE410942647D499001013A5 /* UIImageView+Extensions.swift */,
+				1DD1AB302670BE6200A65F6C /* UITableView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				1D4E60D625B811D4003BA24F /* BookInfoCollectionViewCell.swift in Sources */,
 				1DB3A7C325B8294F00830091 /* BaseCell.swift in Sources */,
 				1DE410952647D499001013A5 /* UIImageView+Extensions.swift in Sources */,
+				1DD1AB312670BE6200A65F6C /* UITableView+Extension.swift in Sources */,
 				1DFE65D0264C1CCF00E67666 /* Constants.swift in Sources */,
 				1D4E5FD125B5D3FC003BA24F /* BookShlefViewController.swift in Sources */,
 				1D17D3CF25BC5C9B00B71103 /* BookDeailViewModel.swift in Sources */,
