@@ -1,7 +1,9 @@
 # ITBookShelf
 Swift, Combine, IT Book Store, pagination, image cache  
 Standalone Application without thrird party library  
-Local Swift Package Manager
+Local Swift Package Manager  
+
+사용된 API는 이곳을 참고 [IT Bookstore API](https://api.itbook.store)
 
 ## 목적
 
@@ -14,7 +16,82 @@ Smooth한 pagination scrollview (tableview, collectionview)
 ### 과제
 로컬 데이터 저장을 더욱 generic하고 의존성을 배제 하도록 작성.
 
-사용된 API는 이곳을 참고 [IT Bookstore API](https://api.itbook.store)
+## CoreModular
+
+**Feature**와 별도로 통신, 유틸리티 기능들을 모아둔  
+Local SPM(Swift Package Manager)  
+Local SPM을 이용하여 빈번 하게 사용 되는 기반/공용 기능을 담당함    
+해당 기능의 수정이 없을 시 빌드 시간을 줄이는데 큰 역할을 함  
+
+### ViewModelStream, ViewModelType  
+
+https://github.com/kickstarter/ios-oss
+
+MVVM Style을 기반으로 더적은 타이핑과 
+구현과 인터페이스의 완전한 분리 
+원본의 단방향 이벤트, 데이터 전달과 은닉성
+유지를 목표료 개발 됨.
+
+**sample code**
+```
+Class SomeClass {
+  class ViewModel {
+      // MARK: - Lazy properties
+      lazy var inputs: Inputs = { Inputs(base: self) }()
+      lazy var outputs: Outputs = { Outputs(base: self) }()
+  }
+}
+...
+
+extension SomeController.ViewModel: ViewModelStream {
+    typealias ViewModel = BookShlefViewController.ViewModel
+    /// Implement only functions, if possible
+    struct Inputs: ViewModelStreamInternals {
+        private unowned var base: ViewModel
+        init(base: ViewModel) { self.base = base }
+    }
+    /// Implement only functions, if possible
+    struct Outputs: ViewModelStreamInternals {
+        private unowned var base: ViewModel
+        init(base: ViewModel) { self.base = base }
+    }
+}
+
+fileprivate typealias Inputs = SomeController.ViewModel.Inputs
+fileprivate typealias Outputs = SomeController.ViewModel.Outputs
+
+extension Inputs {
+    /// event binder, these property types must not be relay and subject
+    var someValueObservable: SomeObservable { base.someValue }
+    func fetchSomething() { base.fetchSomething() }
+    func configureSomeDepandancy(_ depandancy: Depandancy) { base.depandancy = depandancy }
+}
+
+extension Outputs {
+    var item: SomeObservable { base.item }
+    var error: SomeObservable<Error, Never> { base.error }
+    var someValue: String { base.someValue }
+}
+
+```
+
+### 1. Combine을 중점으로 한 통신 모듈
+**sample code**
+```
+Remote<Some Codable>.somefunction().asObservable()
+.compactMap({ $0 })
+.sink(receiveCompletion: { [unowned self] in
+    switch $0 {
+        case .failure(let error):
+            // handle someerror
+        case .finished: print($0)
+            // handle finished event
+    }
+}, receiveValue: { [unowned self] in
+    handle receiveValue
+}).cancel()
+```
+
 
 ## Feature
 
@@ -78,31 +155,5 @@ View 의 갱신 을 수행함.
 **Book Detail**
 
 **PDF**
-
-
-## CoreModular
-
-**Feature**와 별도로 통신, 유틸리티 기능들을 모아둔  
-Local SPM(Swift Package Manager)  
-Local SPM을 이용하여 빈번 하게 사용 되는 중심/공용  
-기능의 수정이 없을 시 쓸데없는 빌드 시간을 줄이는데 큰 역할을 함  
-
-
-### 1. Combine을 중점으로 한 통신 모듈
-**sample code**
-```
-Remote<Codable Model>.function().asObservable()
-.compactMap({ $0 })
-.sink(receiveCompletion: { [unowned self] in
-    switch $0 {
-        case .failure(let error):
-            // handle someerror
-        case .finished: print($0)
-            // handle finished event
-    }
-}, receiveValue: { [unowned self] in
-    handle receiveValue
-}).cancel()
-```
 
 **ETC Extensions**
