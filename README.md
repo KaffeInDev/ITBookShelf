@@ -27,9 +27,9 @@ Local SPM을 이용하여 빈번 하게 사용 되는 기반/공용 기능을 �
 
 https://github.com/kickstarter/ios-oss
 
-MVVM Style을 기반으로 더적은 타이핑과 
-구현과 인터페이스의 완전한 분리 
-원본의 단방향 이벤트, 데이터 전달과 은닉성
+MVVM Style을 기반으로 더적은 타이핑  
+그리고 구현, 인터페이스의 완전한 분리   
+원본의 ViewModel의 단방향 이벤트, 데이터 전달과 은닉성  
 유지를 목표료 개발 됨.
 
 **sample code**
