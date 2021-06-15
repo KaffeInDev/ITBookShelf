@@ -1,6 +1,6 @@
 # ITBookShelf
 Swift, Combine, IT Book Store, pagination, image cache  
-Standalone Application without thrird party library  
+Standalone Application without third party library  
 Local Swift Package Manager  
 
 For the API used, see here [(IT Bookstore API)](https://api.itbook.store)
