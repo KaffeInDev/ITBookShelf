@@ -13,9 +13,6 @@ Combine 기반의 MVVM 어플리케이션.
 Search, SearchResult View 컨트롤러 하이라키의 이해.  
 Smooth한 pagination scrollview (tableview, collectionview)  
 
-### 과제
-로컬 데이터 저장을 더욱 generic하고 의존성을 배제 하도록 작성.
-
 ## CoreModular
 
 **Feature**와 별도로 통신, 유틸리티 기능들을 모아둔  
