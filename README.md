@@ -3,31 +3,36 @@ Swift, Combine, IT Book Store, pagination, image cache
 Standalone Application without thrird party library  
 Local Swift Package Manager  
 
-사용된 API는 이곳을 참고 [IT Bookstore API](https://api.itbook.store)
+For the API used, see here [(IT Bookstore API)](https://api.itbook.store)
 
-## 목적
+## purpose
 
-서드파티 라이브러리 없이 Standalone 작동하는.  
-Combine 기반의 MVVM 어플리케이션.  
+Works Standalone without 3rd party libraries.  
+Combine based MVVM application.  
   
-Search, SearchResult View 컨트롤러 하이라키의 이해.  
-Smooth한 pagination scrollview (tableview, collectionview)  
+Understanding Search, SearchResult View controller hierarchies.  
+Smooth pagination scrollview (tableview, collectionview)  
+Completly seperated Core Module. (using Swift Pakage Manager)
 
 ## CoreModular
 
-**Feature**와 별도로 통신, 유틸리티 기능들을 모아둔  
-Local SPM(Swift Package Manager)  
-Local SPM을 이용하여 빈번 하게 사용 되는 기반/공용 기능을 담당함    
-해당 기능의 수정이 없을 시 빌드 시간을 줄이는데 큰 역할을 함  
+It is a collection of core functions with little change   
+such as communication and utility.  
+Local Swift Package Manager (SPM)
 
 ### ViewModelStream, ViewModelType  
 
 https://github.com/kickstarter/ios-oss
 
-MVVM Style을 기반으로 더적은 타이핑  
-그리고 구현, 인터페이스의 완전한 분리   
-원본의 ViewModel의 단방향 이벤트, 데이터 전달과 은닉성  
-유지를 목표료 개발 됨.
+Based on the kicstater MVVM Style.  
+
+**points of better then original style.**  
+
+less typing and changes then original style.    
+completly separation of interfaces.    
+still using unidirectional data flow  
+and enhanced access control.  
+more extendable easier. 
 
 **sample code**
 ```
@@ -72,7 +77,7 @@ extension Outputs {
 
 ```
 
-### 1. Combine을 중점으로 한 통신 모듈
+### 1. HTTP module based on Combine framework.  
 **sample code**
 ```
 Remote<Some Codable>.somefunction().asObservable()
@@ -94,16 +99,17 @@ Remote<Some Codable>.somefunction().asObservable()
 
 **Base**
 
-공용으로 사용되는 Base ViewController와  
-TableView Cell을 구성 하기 위한 BaseCell Protocol
-(MVVM의 View 기반 피쳐)
+The ViewController used as the base and  
+BaseCell Protocol to configure TableView Cell  
+(View-based feature of MVVM)  
 
 **Model**
 
-MVVM의 **Model**에 해당하는 피쳐로  
-CoreModular의 통신모듈(**Remote**)을 확장하여  
-각 통신 인스턴스를 생성 함
-Model은 Codable을 프로토콜을 따름.
+
+This feature is a category of the **MVVM** model.
+By extending Core Modular's HTTP module (**Remote**)
+Each transaction instance can be create.
+The model conforms the Codable protocol.
 
 ```
 protocol BookShelf: Codable {
@@ -131,20 +137,17 @@ protocol BookInfo: Codable & Equatable {
     }
 ```
 
-#### View 공통
+#### Common View protocol
 
-MVVM 규칙에 따라 ViewModel을 갖추고  
-View의 Event를 감시하여 Model의 변화를 요청하고  
-요청 결과에 따른 Model의 갱신과 그에 따른  
-View 의 갱신 을 수행함.
+conforms MVVM View's protocol
 
 **BookSehlf**
 
-1. 사용자가 검색했던 책이 없는 경우 신규 책 리스트를 불러와서 표시함.
-2. 사용자가 검색했던 책이 저장 되어있는 경우 리스트를 불러와서 표시함.
-3. 이미지는 각 아이템 마 URL 문자열로 제공 되며 이미지는 비동기처리됨.  
-(CoreModular에 속해있는 ImageCache 관련 기능 사용)
-4. 책 검색 기능 제공
+1. 사용자가 검색했던 책이 없는 경우 신규 책 리스트를 불러와서 표시함.  
+2. 사용자가 검색했던 책이 저장 되어있는 경우 리스트를 불러와서 표시함.  
+3. 이미지는 각 아이템 마 URL 문자열로 제공 되며 이미지는 비동기처리됨.      
+(CoreModular에 속해있는 ImageCache 관련 기능 사용)  
+4. 책 검색 기능 제공  
 
 
 **Search Result**
