@@ -143,11 +143,14 @@ conforms MVVM View's protocol
 
 **BookSehlf**
 
-1. 사용자가 검색했던 책이 없는 경우 신규 책 리스트를 불러와서 표시함.  
-2. 사용자가 검색했던 책이 저장 되어있는 경우 리스트를 불러와서 표시함.  
-3. 이미지는 각 아이템 마 URL 문자열로 제공 되며 이미지는 비동기처리됨.      
-(CoreModular에 속해있는 ImageCache 관련 기능 사용)  
-4. 책 검색 기능 제공  
+1. If there is no book that the user has searched for,  
+a new book list is called and displayed.    
+2. If the book the user has searched for is saved,   
+the list is called and displayed.  
+3. The image is provided as a URL string for each item,   
+and the image is asynchronously processed.  
+(Using ImageCache related functions belonging to CoreModular)  
+4. Provides book search function  
 
 
 **Search Result**
