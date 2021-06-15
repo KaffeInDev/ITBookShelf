@@ -45,15 +45,14 @@ extension BookShlefViewController {
                 self.books = $0.books
             }).cancel()
         }
-        // MARK: - privae functions
-        func savedBooks() -> [Model.Book]? {
-            guard let data = UserDefaults.standard.object(
-                    forKey: BookShelfConstants.searchedBooksKey
-            ) as? Data else {
-              return []
-            }
-            return try? JSONDecoder().decode([Model.Book].self, from: data)
-        }
+        
+    }
+}
+
+extension BookShlefViewController.ViewModel: UserDefaultsCodable {
+    // MARK: - privae functions
+    func savedBooks() -> [Model.Book]? {
+        try? userDefaultsDecode(key: BookShelfConstants.searchedBooksKey)
     }
 }
 

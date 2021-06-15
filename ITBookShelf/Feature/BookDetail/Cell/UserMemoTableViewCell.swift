@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreModular
 
 class UserMemoTableViewCell: UITableViewCell, BaseCellProtocol {
     typealias Value = Model.DetailBook
@@ -31,25 +32,26 @@ extension UserMemoTableViewCell: UITextViewDelegate {
         guard let text = textView.text, text.isEmpty == false else { return }
         saveMemo(text)
     }
-    
-    func savedMemo() -> String? {
-        guard let model = model else {return nil }
-        guard let data = UserDefaults.standard.object(
-            forKey: (BookShelfConstants.savedMemoKey + model.isbn13).base64Encoded()
-        ) as? Data else {
-            return .empty
-        }
-        return try? JSONDecoder().decode(String.self, from: data)
+}
+
+extension UserMemoTableViewCell: UserDefaultsCodable {
+    private func savedMemo() -> String? {
+        return try? userDefaultsDecode(key: memoKey())
     }
     
-    func saveMemo(_ text: String) {
-        guard let model = self.model else { return }
+    private func saveMemo(_ text: String) {
         debounceTimer?.invalidate()
-        debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-            try? UserDefaults.standard.set(
-                JSONEncoder().encode(text),
-                forKey: (BookShelfConstants.savedMemoKey + model.isbn13).base64Encoded()
-            )
+        debounceTimer = Timer
+        .scheduledTimer(
+            withTimeInterval: 0.5,
+            repeats: false
+        ) { [unowned self] _ in
+            try? self.userDefaultsEncode(key: self.memoKey())
         }
+    }
+    
+    private func memoKey() -> String {
+        guard let model = model else {return .empty }
+        return (BookShelfConstants.savedMemoKey + model.isbn13).base64Encoded()
     }
 }
