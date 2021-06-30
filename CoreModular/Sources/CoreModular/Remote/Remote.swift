@@ -41,22 +41,25 @@ open class Remote<T: Codable> {
 
 public extension Remote {
     func asObservable(_ timeout: TimeInterval = 10) -> AnyPublisher<T, Error> {
-        urlComponents.url.publisher.mapError({ _ in URLError(.badURL) })
-        .tryCompactMap {
-            try Request.make(url: $0, method: self.method, parameters: self.parameters)
-        }.flatMap({ [unowned self] in
-            self.session.dataTaskPublisher(for: $0, cachedResponseOnError: true)
-        }).tryMap { data, response -> Data in
-            guard let response = response as? HTTPURLResponse,
-                  200..<300 ~= response.statusCode else {
-                throw ResultError.invalidStatusCode
-            }
-            return data
-        }.timeout(.seconds(timeout), scheduler: RunLoop.main, customError: { ResultError.timeout })
-        .decode(type: T.self, decoder: JSONDecoder())
-        .subscribe(on: backgroundQueue)
-        .receive(on: RunLoop.main)
-        .eraseToAnyPublisher()
+        guard let url = urlComponents.url else {
+            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+        }
+        return Just(url)
+            .tryCompactMap {
+                try Request.make(url: $0, method: self.method, parameters: self.parameters)
+            }.flatMap({ [unowned self] in
+                self.session.dataTaskPublisher(for: $0, cachedResponseOnError: true)
+            }).tryMap { data, response -> Data in
+                guard let response = response as? HTTPURLResponse,
+                      200..<300 ~= response.statusCode else {
+                    throw ResultError.invalidStatusCode
+                }
+                return data
+            }.timeout(.seconds(timeout), scheduler: RunLoop.main, customError: { ResultError.timeout })
+            .decode(type: T.self, decoder: JSONDecoder())
+            .subscribe(on: backgroundQueue)
+            .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
     }
 }
 
