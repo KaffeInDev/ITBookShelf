@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol ImageCacheType: class {
+public protocol ImageCacheType: AnyObject {
     func image(for url: URL) -> UIImage?
     func insertImage(_ image: UIImage?, for url: URL)
     func removeImage(for url: URL)
