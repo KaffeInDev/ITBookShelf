@@ -46,7 +46,7 @@ extension UserMemoTableViewCell: UserDefaultsCodable {
             withTimeInterval: 0.5,
             repeats: false
         ) { [unowned self] _ in
-            try? self.userDefaultsEncode(key: self.memoKey())
+            try? self.userDefaultsEncode(key: self.memoKey(), text: text)
         }
     }
     

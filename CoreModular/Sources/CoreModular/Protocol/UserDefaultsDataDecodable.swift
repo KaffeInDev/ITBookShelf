@@ -11,7 +11,7 @@ public protocol UserDefaultsCodable {
 }
 
 public extension UserDefaultsCodable {
-    func userDefaultsEncode(key: String) throws {
+    func userDefaultsEncode(key: String, text: String) throws {
         try UserDefaults.standard.set(
             JSONEncoder().encode(text),
             forKey: key
